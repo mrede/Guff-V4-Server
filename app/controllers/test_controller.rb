@@ -17,7 +17,7 @@ class TestController < ApplicationController
 protected
   def send_android(msg)
   	# this is the apiKey obtained from here https://code.google.com/apis/console/
-  	destination = "APA91bG2s3lrPdiKtJESAUZXL03xtGlk6N3mB51F4bT1-CXHJqdTW6jkNs1APXkT3gQ1GlxvLdG1MLiU6XWGpcbWGqcRGCtMOqiaeI8R3aFtW1Cwt0JpWfZhPsyR7oJIa9KtbTO2gwRIAFlL7qh8N8IR9zwgshXa7LgPCr9ZO4OLJbohT6kuMqE"
+  	destination = "APA91bFdVQPOCiDVaw50g3fCWYhkArfXgEeY4CDNumk7EGNSIgRDFEOScuGddYi4XIHpo7QGpgGxVtcZ0crl1NVvEpM5omx9A42v6vS9FYjetBGpMYYJw64-AP7VQQsNfKmefvbKXMQTSaeq4bW5iqrZUu-Qi6lltA"
     # can be an string or an array of strings containing the regIds of the devices you want to send
 
     data = {:message => msg, :key2 => ["array", "value"]}
@@ -50,7 +50,7 @@ protected
 		notification.alert = msg
 
 		# Notifications can also change the badge count, have a custom sound, indicate available Newsstand content, or pass along arbitrary data.
-		notification.badge = 123
+		notification.badge = 0
 		notification.sound = "sosumi.aiff"
 		notification.content_available = true
 		#notification.custom_data = {foo: "bar"}

@@ -33,7 +33,7 @@ LabelPusher::Application.configure do
   GCM.format = :json
   # :json is default and only available at the moment
 
-  GCM.key =  "AIzaSyBtqv3H46-oS1cXo3ONEoWccsTst_qVB8Y"
+  GCM.key =  "AIzaSyAYogRn5Y8UQkjqbglni0GdUV9y0JWSzuA"
   # this is the apiKey obtained from here https://code.google.com/apis/console/
 
 

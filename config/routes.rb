@@ -1,4 +1,7 @@
 LabelPusher::Application.routes.draw do
+  get "register/android"
+  get "register/ios"
+  
   get "test/send_message"
   get "test/register"
   post "test/register"
