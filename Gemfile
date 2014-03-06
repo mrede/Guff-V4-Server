@@ -44,8 +44,6 @@ gem 'capistrano', group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'pushmeup'
+gem 'pushmeup' #https://github.com/NicosKaralis/pushmeup <- doesnt work for APNS
 
-#gem 'apns'
-
-gem 'houston'
+gem 'houston' #https://github.com/nomad/houston
