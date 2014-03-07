@@ -36,5 +36,6 @@ LabelPusher::Application.configure do
   GCM.key =  "AIzaSyAYogRn5Y8UQkjqbglni0GdUV9y0JWSzuA"
   # this is the apiKey obtained from here https://code.google.com/apis/console/
 
+  LabelPusher::Application.config.ios_pem = '/home/http/dev.guff.me.uk/shared/joint.pem'
 
 end

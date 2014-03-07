@@ -48,7 +48,7 @@ protected
 
 		
 		apn = Houston::Client.development
-		apn.certificate = File.read('/Users/ben/Sites/Label/LabelPusher/lib/joint.pem')
+		apn.certificate = File.read(Rails.configuration.ios_pem)
 
     destination = Array.new
     devices = Device.where(platform: 'ios')
