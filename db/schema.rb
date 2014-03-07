@@ -11,11 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306212505) do
+ActiveRecord::Schema.define(version: 20140307180645) do
 
   create_table "devices", force: true do |t|
     t.string   "token"
     t.string   "platform"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", force: true do |t|
+    t.string   "device_id"
+    t.string   "accuracy"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "messages", force: true do |t|
+    t.string   "ip"
+    t.string   "message"
+    t.string   "accuracy"
+    t.float    "latitude"
+    t.string   "longitude"
+    t.string   "float"
+    t.string   "device_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

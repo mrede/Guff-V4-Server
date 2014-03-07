@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ip: MyString
+  message: MyString
+  accuracy: MyString
+  latitude: 1.5
+  longitude: MyString
+  float: MyString
+  device_id: MyString
+
+two:
+  ip: MyString
+  message: MyString
+  accuracy: MyString
+  latitude: 1.5
+  longitude: MyString
+  float: MyString
+  device_id: MyString

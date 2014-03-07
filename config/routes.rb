@@ -1,4 +1,6 @@
 LabelPusher::Application.routes.draw do
+  get "message/:latitude/:longitude" => 'message#get', as: :get_messages
+  get "message/post"
   get "register/android"
   get "register/ios"
   
