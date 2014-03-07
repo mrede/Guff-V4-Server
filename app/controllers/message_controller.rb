@@ -1,4 +1,7 @@
 class MessageController < ApplicationController
+
+	protect_from_forgery except: :post
+
   def get
   	logger.info("Get called #{params[:latitude]}, #{params[:longitude]}")
 
@@ -13,21 +16,24 @@ class MessageController < ApplicationController
   end
 
   def post
+  	
+
   	msg = Message.new
   	msg.message = params[:message]
   	msg.accuracy = params[:accuracy]
   	msg.latitude = params[:latitude]
   	msg.longitude = params[:longitude]
-  	msg.device_id = Device.where(token: params[:token])
+  	msg.device_id = Device.where(token: params[:token]).first
+  	msg.ip = request.remote_ip
 
   	if msg.save
-	    msg = { :status => "ok"}
+	    output = { :status => "ok"}
     else
-	    msg = { :status => "err"}
+	    output = { :status => "err"}
     end
 
     respond_to do |format|
-    	format.json  { render :json => msg }
+    	format.json  { render :json => output }
   	end
 
   end
