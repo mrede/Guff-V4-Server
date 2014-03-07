@@ -5,8 +5,7 @@ class CreateMessages < ActiveRecord::Migration
       t.string :message
       t.string :accuracy
       t.float :latitude
-      t.string :longitude
-      t.string :float
+      t.float :longitude
       t.string :device_id
 
       t.timestamps
