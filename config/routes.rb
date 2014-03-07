@@ -1,5 +1,5 @@
 LabelPusher::Application.routes.draw do
-  get "message/:latitude/:longitude" => 'message#get', as: :get_messages
+  get "message/:latitude.:lat_dec/:longitude.:lon_dec" => 'message#get', as: :get_messages
   
 
   post "message" => 'message#post'
