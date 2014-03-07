@@ -61,7 +61,7 @@ class MessageController < ApplicationController
 protected 
 
 	def get_local_messages(expiry)
-		messages = ActiveRecord::Base.connection.execute("select distance, message, created_at from ( select ( 6371 * acos( cos( radians(#{params[:latitude]}.#{params[:lat_dec]}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{params[:longitude]}.#{params[:lon_dec]}) ) + sin( radians(#{params[:latitude]}.#{params[:lat_dec]}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from messages a ) as dt where distance < 0.2 and created_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' order by created_at desc")
+		messages = ActiveRecord::Base.connection.execute("select distance, message, created_at from ( select ( 6371 * acos( cos( radians(#{latitude}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{longitude}) ) + sin( radians(#{latitude}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from messages a ) as dt where distance < 0.2 and created_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' order by created_at desc")
 
   	output = Array.new
   	messages.each do |m|
@@ -77,7 +77,7 @@ protected
   end
 
   def get_local_devices(expiry, device)
-		devices_ids = ActiveRecord::Base.connection.execute("select device_id from ( select ( 6371 * acos( cos( radians(#{params[:latitude]}.#{params[:lat_dec]}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{params[:longitude]}.#{params[:lon_dec]}) ) + sin( radians(#{params[:latitude]}.#{params[:lat_dec]}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from locations a ) as dt where distance < 0.2 and created_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' and device_id <> #{device.id} order by created_at desc")
+		devices_ids = ActiveRecord::Base.connection.execute("select device_id from ( select ( 6371 * acos( cos( radians(#{latitude}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{longitude}) ) + sin( radians(#{latitude}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from locations a ) as dt where distance < 0.2 and created_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' and device_id <> #{device.id} order by created_at desc")
 		logger.info("DEVICES IN AREA #{devices_ids.to_a}")
 
 		devices = Array.new
@@ -104,11 +104,19 @@ protected
 	end
 
 	def latitude
-		"#{params[:latitude]}.#{params[:lat_dec]}"
+		if !params[:latitude].nil? && !params[:latitude].index('.').nil?
+			params[:latitude]
+		else
+			"#{params[:latitude]}.#{params[:lat_dec]}"
+		end
 	end
 
 	def longitude
-		"#{params[:longitude]}.#{params[:lon_dec]}"
+		if !params[:longitude].nil? && !params[:longitude].index('.').nil?
+			params[:longitude]
+		else
+			"#{params[:longitude]}.#{params[:lon_dec]}"
+		end
 	end
 
 end
