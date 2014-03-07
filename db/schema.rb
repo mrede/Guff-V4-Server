@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20140306212505) do
 
   create_table "devices", force: true do |t|
     t.string   "token"
-    t.string   "type"
+    t.string   "platform"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

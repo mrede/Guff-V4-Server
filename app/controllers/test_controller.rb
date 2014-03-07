@@ -17,7 +17,15 @@ class TestController < ApplicationController
 protected
   def send_android(msg)
   	# this is the apiKey obtained from here https://code.google.com/apis/console/
-  	destination = "APA91bFdVQPOCiDVaw50g3fCWYhkArfXgEeY4CDNumk7EGNSIgRDFEOScuGddYi4XIHpo7QGpgGxVtcZ0crl1NVvEpM5omx9A42v6vS9FYjetBGpMYYJw64-AP7VQQsNfKmefvbKXMQTSaeq4bW5iqrZUu-Qi6lltA"
+  	#destination = "APA91bFdVQPOCiDVaw50g3fCWYhkArfXgEeY4CDNumk7EGNSIgRDFEOScuGddYi4XIHpo7QGpgGxVtcZ0crl1NVvEpM5omx9A42v6vS9FYjetBGpMYYJw64-AP7VQQsNfKmefvbKXMQTSaeq4bW5iqrZUu-Qi6lltA"
+    destination = Array.new
+    devices = Device.where(platform: 'and')
+    devices.each do |d|
+      destination.push(d.token)
+    end
+
+    logger.info("Devices #{devices}")
+
     # can be an string or an array of strings containing the regIds of the devices you want to send
 
     data = {:message => msg, :key2 => ["array", "value"]}
@@ -42,21 +50,27 @@ protected
 		apn = Houston::Client.development
 		apn.certificate = File.read('/Users/ben/Sites/Label/LabelPusher/lib/joint.pem')
 
-		# An example of the token sent back when a device registers for notifications
-		token = "45884a5865c8faf4ef815ceeeace8ebf734c20ae6e3299e4853786aed3842463"
+    destination = Array.new
+    devices = Device.where(platform: 'ios')
+    devices.each do |d|
+      # Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
+      notification = Houston::Notification.new(device: token)
+      notification.alert = msg
 
-		# Create a notification that alerts a message to the user, plays a sound, and sets the badge on the app
-		notification = Houston::Notification.new(device: token)
-		notification.alert = msg
+      # Notifications can also change the badge count, have a custom sound, indicate available Newsstand content, or pass along arbitrary data.
+      notification.badge = 0
+      notification.sound = "sosumi.aiff"
+      notification.content_available = true
+      
+      destination.push(notification)
+    end
 
-		# Notifications can also change the badge count, have a custom sound, indicate available Newsstand content, or pass along arbitrary data.
-		notification.badge = 0
-		notification.sound = "sosumi.aiff"
-		notification.content_available = true
-		#notification.custom_data = {foo: "bar"}
+
+
+		
 
 		# And... sent! That's all it takes.
-		apn.push(notification)
+		apn.push(destination)
 		
 
 	end
