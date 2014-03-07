@@ -1,11 +1,11 @@
 class RegisterController < ApplicationController
   def android
-  	device = Device.where(token: params[:token], type: 'and').first
+  	device = Device.where(token: params[:token], platform: 'and').first
 
   	if device.nil?
 	  	device = Device.new
   		device.token = params[:token]
-  		device.type = 'and'
+  		device.platform = 'and'
   		device.save
   	end
 
@@ -17,11 +17,11 @@ class RegisterController < ApplicationController
   end
 
   def ios
-  	device = Device.where(token: params[:token], type: 'ios').first
+  	device = Device.where(token: params[:token], platform: 'ios').first
   	if device.nil?
 	  	device = Device.new
   		device.token = params[:token]
-  		device.type = 'ios'
+  		device.platform = 'ios'
   		device.save
   	end
 
