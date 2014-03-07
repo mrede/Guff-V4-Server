@@ -2,7 +2,7 @@
 lock '3.1.0'
 
 set :application, 'LabelPusher'
-set :repo_url, 'git@github.com:mrede/LabelPusher.git'
+set :repo_url, 'git@github.com:mrede/Guff-V4-Server.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
