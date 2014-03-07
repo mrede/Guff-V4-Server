@@ -14,7 +14,7 @@ class Messenger::PushMessenger
 			end
 		end
 
-		if ios.size > 0
+		if android.size > 0
 			send_android(msg, android)
 		end
 		if ios.size > 0
