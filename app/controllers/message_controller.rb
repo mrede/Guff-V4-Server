@@ -77,6 +77,7 @@ protected
   end
 
   def get_local_devices(expiry, device)
+    return Array.new unless !device.nil?
 		devices_ids = ActiveRecord::Base.connection.execute("select device_id from ( select ( 6371 * acos( cos( radians(#{latitude}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{longitude}) ) + sin( radians(#{latitude}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from locations a ) as dt where distance < 200 and updated_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' and device_id <> #{device.id} order by created_at desc")
 		logger.info("DEVICES IN AREA #{devices_ids.to_a}")
 
