@@ -93,6 +93,7 @@ protected
 
 	def record_location(device)
 
+    return unless !device.nil?
 		if device.location.nil?
 			logger.info("No location")
 			device.location = Location.new
