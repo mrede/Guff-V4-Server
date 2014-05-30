@@ -37,6 +37,8 @@ class MessageController < ApplicationController
   	# get out device
   	device = Device.where(token: params[:token]).first
 
+    record_location(device)
+
 
   	# set message cut off
   	expiry = Time.now - 2.hours
