@@ -67,11 +67,11 @@ protected
 
   	output = Array.new
   	messages.each do |m|
-  		logger.info("M: #{m[2]} > #{7200 - ((Time.now ) - m[2])}" )
+  		logger.info("M: #{m[2]} > #{(7200 - ((Time.now ) - m[2])).to_i}" )
   		h = Hash.new
   		h['m'] = m[1]
   		h['d'] = m[0]
-  		h['t'] = 7200 - ((Time.now ) - m[2])
+  		h['t'] = (7200 - ((Time.now ) - m[2])).to_i
   		output.push(h)
   	end
 
