@@ -67,7 +67,7 @@ protected
 
   	output = Array.new
   	messages.each do |m|
-  		logger.info("M: #{m[2]}")
+  		logger.info("M: #{m[2]} > #{7200 - ((Time.now ) - m[2])}" )
   		h = Hash.new
   		h['m'] = m[1]
   		h['d'] = m[0]
