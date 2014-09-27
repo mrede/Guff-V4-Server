@@ -87,8 +87,10 @@ protected
 
 		devices_ids.each do |d|
 			dev = Device.find_by_id(d)
-			logger.info("DEvice token: #{dev.token}")
-			devices.push(dev)
+      if (dev)
+  			logger.info("DEvice token: #{dev.token}")
+	   		devices.push(dev)
+      end
 		end
 
 		devices
