@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.1.0'
+lock '3.2.1'
 
 set :application, 'LabelPusher'
 set :repo_url, 'git@github.com:mrede/Guff-V4-Server.git'
