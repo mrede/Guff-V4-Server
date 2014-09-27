@@ -33,7 +33,7 @@ LabelPusher::Application.configure do
   GCM.format = :json
   # :json is default and only available at the moment
 
-  GCM.key =  "AIzaSyAYogRn5Y8UQkjqbglni0GdUV9y0JWSzuA"
+  GCM.key =  "AIzaSyCyizhkPbGE4yV9xWwWAvZiVBjsYWX3ez4"
   # this is the apiKey obtained from here https://code.google.com/apis/console/
 
   LabelPusher::Application.config.ios_pem = '/Users/ben/Sites/Label/GuffV4 Server/lib/joint.pem'
