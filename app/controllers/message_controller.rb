@@ -2,6 +2,8 @@ class MessageController < ApplicationController
 
 	protect_from_forgery except: :post
 
+  @@distance = 0.2 # Distance to check messages are within
+
   def get
   	logger.info("Get called #{params[:latitude]}, #{params[:longitude]}")
 
@@ -62,8 +64,10 @@ class MessageController < ApplicationController
 
 protected 
 
+
+
 	def get_local_messages(expiry)
-		messages = ActiveRecord::Base.connection.execute("select distance, message, created_at from ( select ( 6371 * acos( cos( radians(#{latitude}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{longitude}) ) + sin( radians(#{latitude}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from messages a ) as dt where distance < 0.2 and created_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' order by created_at desc")
+		messages = ActiveRecord::Base.connection.execute("select distance, message, created_at from ( select ( 6371 * acos( cos( radians(#{latitude}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{longitude}) ) + sin( radians(#{latitude}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from messages a ) as dt where distance < #{@@distance} and created_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' order by created_at desc")
 
   	output = Array.new
   	messages.each do |m|
@@ -80,7 +84,7 @@ protected
 
   def get_local_devices(expiry, device)
     return Array.new unless !device.nil?
-		devices_ids = ActiveRecord::Base.connection.execute("select device_id from ( select ( 6371 * acos( cos( radians(#{latitude}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{longitude}) ) + sin( radians(#{latitude}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from locations a ) as dt where distance < 0.2 and updated_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' and device_id <> #{device.id} order by created_at desc")
+		devices_ids = ActiveRecord::Base.connection.execute("select device_id from ( select ( 6371 * acos( cos( radians(#{latitude}) ) * cos( radians( a.latitude ) ) * cos( radians( a.longitude ) - radians(#{longitude}) ) + sin( radians(#{latitude}) ) * sin( radians( a.latitude ) ) ) ) as distance, a.* from locations a ) as dt where distance < #{@@distance} and updated_at > '#{expiry.strftime('%Y-%m-%d %H:%M:%S')}' and device_id <> #{device.id} order by created_at desc")
 		logger.info("DEVICES IN AREA #{devices_ids.to_a}")
 
 		devices = Array.new
