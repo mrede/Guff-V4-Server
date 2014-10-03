@@ -2,7 +2,7 @@ class MessageController < ApplicationController
 
 	protect_from_forgery except: :post
 
-  @@distance = 0.2 # Distance to check messages are within
+  @@distance = 20000 # Distance to check messages are within
 
   def get
   	logger.info("Get called #{params[:latitude]}, #{params[:longitude]}")
